@@ -3,7 +3,8 @@
 
 # SOURCE_DIR is the folder which contains the PDF and markdown files to be
 # used in the creation of the resource guide.
-SOURCE_DIR="./docs/Employee Resource Guide"
+#SOURCE_DIR="./docs/Employee Resource Guide"
+SOURCE_DIR="./test_docs/Employee Resource Guide"
 
 # TARGET_DIR is the folder which will hold the resource guide once it is created
 TARGET_DIR="./Employee Resource Guide"

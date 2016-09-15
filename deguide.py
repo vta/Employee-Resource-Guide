@@ -11,14 +11,14 @@ import markdown
 
 RESOURCES_DIR = None
 
-def build_page(name, item, out_dir):
-  target_dir = os.path.dirname(item['path'])
+def build_page(item, out_dir):
+  target_dir = os.path.dirname(item.path)
 
-  p_html = str('None' if item['parent'] is None or item['parent']['html_file_location'] is None else item['parent']['html_file_location'])
-  p_name = str('None' if item['parent'] is None or item['parent']['name'] is None else item['parent']['name'])
-  print 'making HTML page for item: "'+str(name)+'" in directory: "'+target_dir+'". Item has parent : "'+p_name+'" at "'+p_html+'"'
-  rel_path = os.path.join(target_dir, str(name)+'.html')
-  item['html_file_location'] = rel_path
+  p_html = str('None' if item.parent is None or item.parent.html_file_location is None else item.parent.html_file_location)
+  p_name = str('None' if item.parent is None or item.parent.name is None else item.parent.name)
+  print 'making HTML page for item: "'+str(item.name)+'" in directory: "'+target_dir+'". Item has parent : "'+p_name+'" at "'+p_html+'"'
+  rel_path = os.path.join(target_dir, str(item.name)+'.html')
+  item.html_file_location = rel_path
 
   with open(rel_path,"w") as f:
     page_contents = []
@@ -27,22 +27,25 @@ def build_page(name, item, out_dir):
     resources_path = os.path.relpath(RESOURCES_DIR, rel_path)
     # print 'getting rel path to resources directory from {0} and {1} : {2}'.format(RESOURCES_DIR, rel_path, resources_path)
     
-    if item['stub'] is not None:
-      page_contents.append('<p>{0}</p>'.format(item['stub']))
+    if item.stub is not None:
+      page_contents.append('<p>{0}</p>'.format(item.stub))
 
     page_contents.append(build_ol(item, target_dir, out_dir))
-    page_html = populate_template("template.html", name, ''.join(page_contents), html_nav_breadcrumbs, resources_path)
+    page_html = populate_template("template.html", item.name, ''.join(page_contents), html_nav_breadcrumbs, resources_path)
     f.write(page_html)
   return rel_path
 
 def breadcrumb(item, target_dir):
   crumbs = []
-  parent = item['parent']
-  while parent is not None and parent['name'] is not None:
-    crumbs.append('<a href="{0}" class="crumb">{1}</a>'.format(os.path.relpath(parent['html_file_location'], target_dir), parent['name']))
-    parent = parent['parent']
+  parent = item.parent
+  while parent is not None and parent.name is not None:
+    path_to_parent_html = None if parent.html_file_location is None or target_dir is None else os.path.relpath(parent.html_file_location, target_dir)
+    crumbs.append('<!-- html_file_location: '+ str(None if parent.html_file_location is None else parent.html_file_location) +', target_dir: '+ str(None if target_dir is None else target_dir)+' -->')
+    parent_name = None if path_to_parent_html is None else parent.name
+    crumbs.append('<a href="{0}" class="crumb">{1}</a>'.format(path_to_parent_html, parent_name))
+    parent = parent.parent
   crumbs.reverse()
-  crumbs.append('<span class="crumb">{0}</span>'.format(item['name']))
+  crumbs.append('<span class="crumb">{0}</span>'.format(item.name))
   if len(crumbs) is 1:
     return ''
   return '<span class="sep">&gt;</span>'.join(crumbs)
@@ -50,20 +53,23 @@ def breadcrumb(item, target_dir):
 def build_ol(item, html_file_location, out_dir):
   ol = []
 
-  if len(item['documents']) > 0:
-    ol.append('<p>{0}</p>'.format( folder_from_path(item['documents'][:1][0][1])) )
-    ol.append(build_lis(item['documents'], html_file_location, out_dir))
+  if len(item.documents) > 0:
+    name_of_folder_containing_documents = folder_from_path(item.documents[:1][0][1])
+    ol.append('<p>{0}</p>'.format(name_of_folder_containing_documents) )
+    ol.append(build_lis(item.documents, html_file_location, out_dir))
 
-  if len(item['children']) > 0:
+  if len(item.children) > 0:
     ol.append('<ol>')
-    for child in item['children']:
+    for child in item.children:
       ol.append('<li>')
-      if child['stub'] is not None or child['children'] is not None:
+      if child.stub is not None:
         # this means a markdown document was found in the
         # folder root, so this should be created as a new page
-        rel_path = build_page(child['name'], child, out_dir)
+        rel_path = build_page(child, out_dir)
         rel_path = os.path.relpath(rel_path, html_file_location)
-        ol.append('<a href="{0}">{1}</a>'.format(pct_encode(rel_path), child['name']))
+        ol.append('<a href="{0}">{1}</a>'.format(pct_encode(rel_path), child.name))
+      # elif child.children is not None:
+      #  ol.append("".join([ build_ol(c, html_file_location, out_dir) for c in child.children ]))
       else:
         ol.append(build_ol(child, html_file_location, out_dir))
       ol.append('</li>')
@@ -76,7 +82,10 @@ def build_lis(toc_list, html_file_location, out_dir):
   ol = []
   ol.append('<ol>')
   for doc in toc_list:
-    ol.append('<li class="pdf">')
+    if doc[1].endswith(".pdf"):
+        ol.append('<li class="pdf">')
+    else:
+        ol.append('<li>')
     href = os.path.relpath(doc[1], html_file_location)
     ol.append('<a href="{0}">{1}</a>'.format(pct_encode(href), doc[0]))
     ol.append('</li>')
@@ -112,9 +121,9 @@ def pct_encode(url_str):
   return "".join([replacements.get(c, c) for c in url_str])
 
 
-def build_html_toc_pages(label, raw_toc, out_dir):
-  print 'making first page with name: '+str(label)
-  html_toc = build_page(label, raw_toc, out_dir)
+def build_html_toc_pages(resource_item, out_dir):
+  print 'making first page with name: '+str(resource_item.name)
+  html_toc = build_page(resource_item, out_dir)
   # print(populate_template("template.html", html_toc))
 
 def gather_resources(src, dst):
@@ -127,20 +136,75 @@ def gather_resources(src, dst):
       shutil.copy(src, dst)
     else: raise
 
+
+class Resource_Item:
+
+    def __init__(self, name=None, stub=None, path=None, parent=None, html_file_location=None, documents=[], children=[]):
+      self.name = name
+      self.stub = stub
+      self.path = path
+      self.parent = parent
+      self.html_file_location = html_file_location
+      self.documents = documents
+      self.children = children
+      self.item_type = None
+
+    def get_type(self):
+      if os.path.isfile(self.path):
+        if self.path.endswith(".pdf"):
+          self.item_type = Resource_Item_Type.PDF
+        elif self.path.endswith(".md"):
+          self.item_type = Resource_Item_Type.MARKDOWN
+        else:
+          self.item_type = Resource_Item_Type.OTHER
+      elif os.path.isdir(self.path):
+        self.item_type = Resource_Item_Type.FOLDER
+      else:
+        self.item_type = Resource_Item_Type.OTHER
+      return self.item_type
+
+    def to_string(self):
+        return '"'+str(self.item_type)+'", "'+ str(self.name) +'", "'+ str(self.stub) +'", "'+ str(self.path) +'", "'+ str(self.parent) +'", "'+ str(self.html_file_location) +'", '+ str(self.documents) #, "'+ str(self.children)+'"'
+
+
+
+class Resource_Item_Type():
+  FOLDER = 0
+  PDF = 1
+  MARKDOWN = 2
+  OTHER = 3
+  NONE = -1
+  def __init__(self, Type):
+    self.value = Type
+  def __str__(self):
+    if self.value == Resource_Item_Type.FOLDER:
+      return 'Folder'
+    if self.value == Resource_Item_Type.PDF:
+      return 'PDF'
+    if self.value == Resource_Item_Type.MARKDOWN:
+      return 'Markdown'
+    if self.value == Resource_Item_Type.OTHER:
+      return 'Other'
+    if self.value == Resource_Item_Type.NONE:
+      return 'Unknown'
+  def __eq__(self,y):
+    return self.value==y.value
+
+
 def walk_dir(root, parent = None):
-  entry = {"name" : os.path.basename(root), "path" : None, "parent" : parent, "html_file_location" : None, "stub" : None, "documents" : [], "children" : []}
+  entries = []  
   for item in os.listdir(root):
-    entry['path'] = os.path.join(root, item)
-    if os.path.isfile(entry['path']):
-      if item.endswith(".pdf"):
-        filename_no_ext = os.path.splitext(item)[0]
-        entry["documents"].append((filename_no_ext, entry['path']))
-      elif item.endswith(".md"):
-        entry["stub"] = read_markdown_file_as_html(entry['path'])
-    elif os.path.isdir(entry['path']):
-      if dir_contains_pdf(entry['path']):
-        entry['children'].append(walk_dir(entry['path'], parent=entry))
-  return entry
+    file_or_folder_name_no_ext = os.path.splitext(os.path.basename(root))[0]
+    entry = Resource_Item( name=file_or_folder_name_no_ext, parent=parent, path=os.path.join(os.path.abspath(root), item) )
+    if entry.get_type() is Resource_Item_Type.PDF:
+      entry.documents.append((entry.name, entry.path))
+    elif entry.get_type() is Resource_Item_Type.MARKDOWN:
+      entry.stub = read_markdown_file_as_html(entry.path)
+    elif entry.get_type() is Resource_Item_Type.FOLDER:
+      if dir_contains_pdf(entry.path):
+        entry.children.append(walk_dir(entry.path, parent=entry))
+    entries.append(entry)
+  return entries
 
 def dir_contains_pdf(root):
   root = os.path.abspath(root)
@@ -187,8 +251,12 @@ def main():
   gather_resources(RESOURCES_DIR, out_resources_dir)
   RESOURCES_DIR = os.path.abspath(out_resources_dir)
   print 'resources directory = '+RESOURCES_DIR
-  raw_toc = walk_dir(out_dir)
-  build_html_toc_pages(in_dir_label, raw_toc, out_dir)
+  root_resource_item = walk_dir(out_dir)
+  print("\n\n".join([str(r.to_string()) for r in root_resource_item]))
+  return
+  if root_resource_item.name is None:
+    root_resource_item.name = in_dir_label
+  build_html_toc_pages(root_resource_item, out_dir)
 
 
 
