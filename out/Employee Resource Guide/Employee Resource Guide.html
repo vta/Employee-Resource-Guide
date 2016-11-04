@@ -48,7 +48,6 @@
     font-weight: 700;}
   .accordion-button.collapsed>.accordion-indicator:before  { content:"+";}
   .accordion-button>.accordion-indicator:before  { content:"-";}
-  
  
   .accordion-content {
     border-bottom: 3px solid #f1f1f1;
@@ -58,40 +57,113 @@
     overflow: auto;
     padding: 3rem;}
 
+
+  .search {display:block;margin-top: 3rem;max-width: 46rem;}
+  .search label {
+    display: none;
+  }
+  .search [type="search"]{
+    -webkit-appearance: none;
+    border: 1px solid transparent;
+    border-top: none;
+    border-bottom-right-radius: 0;
+    border-bottom: 1px solid #DDD;
+    border-right: none;
+    border-top-right-radius: 0;
+    border-top-left-radius: .5rem;
+    border-bottom-left-radius: .5rem;
+    box-sizing: border-box;
+    float: left;
+    font-size: 1.4rem;
+    line-height: 1.3;
+    height: 3.3rem;
+    width: calc(100% - 8.5rem);
+    margin: 0;
+    outline: none;
+    padding: 1rem 0.7em;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.39), 0 -1px 1px #FFF, 0 1px 0 #FFF;
+  }
+  .search [type="search"]:focus {
+  box-shadow: inset 0 0 0 1px #205493;
+      color: #205493;
+  }
+  .search [type="submit"]{
+    font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+    background-color: #0071bc;
+    color: #ffffff;
+    font-size: 1.7rem;
+    font-weight: 400;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: 0;
+    border-radius: 0.3rem;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    height: 3.3rem;
+    width: 8.5rem;
+    margin: 0;
+    padding: 0;
+  }
+
   </style>
   <link href="resources/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
   <header>
     <img src="resources/images/vta_logo.png" alt="VTA" class="vta_logo"/>
+
+    
+    <div class="width-one-half">
+      <form class="search">
+        <div role="search">
+          <label class="usa-sr-only" for="search-field">Search</label>
+          <input id="search-field" type="search" name="search">
+          <button type="submit">
+            <span class="usa-sr-only">Search</span>
+          </button>
+        </div>
+      </form>
+    </div>
   </header>
+
   <div class="content-wrapper">
     <div id="toc"></div>
     <script>
       var toc_data = {
   "stub": "<p>The Santa Clara Valley Transportation Authority (Authority) considers its employees to be the most important resource of the organization. As such, the Authority strives to create a work environment that is fair and equitable to all employees, and that will provide the opportunity for advancement and development based on merit. The Authority will continue to grow so long as it is able to attract highly qualified and motivated employees and managers with competitive salaries and benefits, The Authority will be able to retain these employees and managers by fair and equitable administration of personnel policies and procedures.</p>\n<p>This manual contains the Authority's personnel policies and procedures which must be followed by all employees. It is intended to serve as the permanent reference and working guide for employees in the daily administration of Authority affairs.</p>\n<p>These written policies are intended to increase understanding, eliminate the need for numerous personal or individual decisions on matters of Authority policy, and assist in assuring uniformity throughout the organization.</p>\n<p>This manual covers all Authority employees except where an employee's collective bargaining agreement addresses the same policy. In all occasions, the collective bargaining agreement and/or applicable resolution will supersede the policies presented in this manual. These policies and procedures do not supersede any work rules established by the individual departments.</p>\n<p>Unrepresented employees are subject to the terms and conditions contained in the benefits resolution. If there is a conflict between these policies and the resolution, the resolution prevails.</p>",
-  "rel_path": ".",
-  "name": "Employee Resource Guide",
-  "docs": [
-    "Contact List.pdf"
-  ],
   "children": [
     {
       "stub": "<p>Collective Bargaining Agreements</p>",
+      "children": [],
       "rel_path": "Labor Relations - CBAs",
-      "name": "Labor Relations - CBAs",
       "docs": [
         "AFSCME Contract 2016-2019.pdf",
         "ATU Contract 2015-2018.pdf",
         "SEIU Contract 2015-2018.pdf",
         "TAEA Contract 2016-2019.pdf"
       ],
-      "children": []
+      "name": "Labor Relations - CBAs"
     },
     {
       "stub": "<p>New Employee Orientation Materials</p>",
+      "children": [
+        {
+          "stub": "<p>Handbooks and Workbooks</p>",
+          "children": [],
+          "rel_path": "New Employee Orientation Materials/Employee Handbooks & Workbooks",
+          "docs": [
+            "All Hazards Training.pdf",
+            "Civil Rights Training.pdf",
+            "Drug and Alcohol Policy Manual.pdf",
+            "NEO complete Materials.pdf",
+            "Violence in the Workplace.pdf"
+          ],
+          "name": "Employee Handbooks & Workbooks"
+        }
+      ],
       "rel_path": "New Employee Orientation Materials",
-      "name": "New Employee Orientation Materials",
       "docs": [
         "Board of Directors Informational Packet.pdf",
         "CFRA FMLA PDL & SDI.pdf",
@@ -108,43 +180,18 @@
         "VTA Occupational Health and Safety.pdf",
         "VTA Organizational Chart.pdf"
       ],
-      "children": [
-        {
-          "stub": "<p>Handbooks and Workbooks</p>",
-          "rel_path": "New Employee Orientation Materials/Employee Handbooks & Workbooks",
-          "name": "Employee Handbooks & Workbooks",
-          "docs": [
-            "All Hazards Training.pdf",
-            "Civil Rights Training.pdf",
-            "Drug and Alcohol Policy Manual.pdf",
-            "NEO complete Materials.pdf",
-            "Violence in the Workplace.pdf"
-          ],
-          "children": []
-        }
-      ]
+      "name": "New Employee Orientation Materials"
     },
     {
       "stub": "<p>VTA Policies and Procedures</p>",
-      "rel_path": "Policies and Procedures",
-      "name": "Policies and Procedures",
-      "docs": [
-        "Definitions.pdf"
-      ],
       "children": [
         {
           "stub": "<p>Employee Handbook</p>",
-          "rel_path": "Policies and Procedures/0-99 Employee Handbook",
-          "name": "0-99 Employee Handbook",
-          "docs": [
-            "Table of Contents - widescreen.pdf",
-            "Table of Contents.pdf"
-          ],
           "children": [
             {
               "stub": "<p>Conduct</p>",
+              "children": [],
               "rel_path": "Policies and Procedures/0-99 Employee Handbook/Conduct",
-              "name": "Conduct",
               "docs": [
                 "Attendance Management.pdf",
                 "Bulletin Boards.pdf",
@@ -164,24 +211,24 @@
                 "Use of Nonrevenue Vehicles.pdf",
                 "Violence Free Workplace.pdf"
               ],
-              "children": []
+              "name": "Conduct"
             },
             {
               "stub": "<p>Employee Development</p>",
+              "children": [],
               "rel_path": "Policies and Procedures/0-99 Employee Handbook/Employee Development",
-              "name": "Employee Development",
               "docs": [
                 "Exhibit A - Performance Appraisal Program Overview.pdf",
                 "Performance Appraisal.pdf",
                 "Probationary Performance Discussions.pdf",
                 "Training and Development.pdf"
               ],
-              "children": []
+              "name": "Employee Development"
             },
             {
               "stub": "<p>Employee Leaves</p>",
+              "children": [],
               "rel_path": "Policies and Procedures/0-99 Employee Handbook/Employee Leaves",
-              "name": "Employee Leaves",
               "docs": [
                 "Family Medical Leave, Pregnancy Disability Leaves and Military Family Leave.pdf",
                 "Final Vacation Leave.pdf",
@@ -193,12 +240,12 @@
                 "STO and Sick Leave Programs for Executive and Non-Represented Managers.pdf",
                 "Vacation Donation.pdf"
               ],
-              "children": []
+              "name": "Employee Leaves"
             },
             {
               "stub": "<p>Employee Rights and Regulations</p>",
+              "children": [],
               "rel_path": "Policies and Procedures/0-99 Employee Handbook/Employee Rights & Regulations",
-              "name": "Employee Rights & Regulations",
               "docs": [
                 "Alternately Staffed Positions - Promotions Within the Series.pdf",
                 "Background Checks.pdf",
@@ -227,12 +274,12 @@
                 "Voluntary Transfers Promotions Demotions.pdf",
                 "Work Out of Class Acting Pay.pdf"
               ],
-              "children": []
+              "name": "Employee Rights & Regulations"
             },
             {
               "stub": "<p>Hours of Work and Payroll Practices</p>",
+              "children": [],
               "rel_path": "Policies and Procedures/0-99 Employee Handbook/Hours of Work and Payroll Practices",
-              "name": "Hours of Work and Payroll Practices",
               "docs": [
                 "Garnishment.pdf",
                 "Hours of Work and Paydays.pdf",
@@ -243,12 +290,12 @@
                 "Travel and Expense Reimbursement.pdf",
                 "Voluntary Reduced Work Hours Program.pdf"
               ],
-              "children": []
+              "name": "Hours of Work and Payroll Practices"
             },
             {
               "stub": "<p>Safety and Health</p>",
+              "children": [],
               "rel_path": "Policies and Procedures/0-99 Employee Handbook/Safety and Health",
-              "name": "Safety and Health",
               "docs": [
                 "ADA.pdf",
                 "Agency ID Badge.pdf",
@@ -267,32 +314,94 @@
                 "Smoking.pdf",
                 "Workers' Compensation.pdf"
               ],
-              "children": []
+              "name": "Safety and Health"
             },
             {
               "stub": "<p>Employee Benefits</p>",
+              "children": [],
               "rel_path": "Policies and Procedures/0-99 Employee Handbook/Unemployment Benefits",
-              "name": "Unemployment Benefits",
               "docs": [
                 "COBRA.pdf",
                 "Unemployment Insurance.pdf"
               ],
-              "children": []
+              "name": "Unemployment Benefits"
             }
-          ]
+          ],
+          "rel_path": "Policies and Procedures/0-99 Employee Handbook",
+          "docs": [
+            "Table of Contents - widescreen.pdf",
+            "Table of Contents.pdf"
+          ],
+          "name": "0-99 Employee Handbook"
         },
         {
           "stub": "<p>Standard Operating Policies and Procedures</p>",
-          "rel_path": "Policies and Procedures/100-999 Standard Operating Policies and Procedures",
-          "name": "100-999 Standard Operating Policies and Procedures",
-          "docs": [
-            "Table of Contents.pdf"
-          ],
           "children": [
             {
               "stub": "<p>Business Services Policies and Procedures</p>",
+              "children": [
+                {
+                  "stub": null,
+                  "children": [],
+                  "rel_path": "Policies and Procedures/100-999 Standard Operating Policies and Procedures/Business Services/Negotiated Procurements",
+                  "docs": [
+                    "Negotiated Procurements.pdf",
+                    "Vendor Selection Negotiated Procurements Procedure.pdf"
+                  ],
+                  "name": "Negotiated Procurements"
+                },
+                {
+                  "stub": null,
+                  "children": [],
+                  "rel_path": "Policies and Procedures/100-999 Standard Operating Policies and Procedures/Business Services/Records Mgmt Program Retention Schedule",
+                  "docs": [
+                    "Exhibit A - Retention Schedule.pdf",
+                    "Records Mgmt Program Retention Schedule.pdf"
+                  ],
+                  "name": "Records Mgmt Program Retention Schedule"
+                },
+                {
+                  "stub": null,
+                  "children": [],
+                  "rel_path": "Policies and Procedures/100-999 Standard Operating Policies and Procedures/Business Services/Vendor Selection - Two Step Procurements",
+                  "docs": [
+                    "Two Step Procurements Procedure.pdf",
+                    "Vendor Selection - Two Step Procurements.pdf"
+                  ],
+                  "name": "Vendor Selection - Two Step Procurements"
+                },
+                {
+                  "stub": null,
+                  "children": [],
+                  "rel_path": "Policies and Procedures/100-999 Standard Operating Policies and Procedures/Business Services/Vendor Selection RFP Architectural",
+                  "docs": [
+                    "Vendor Selection RFP Arch Eng Oth Procedure.pdf",
+                    "Vendor Selection RFP Arch Eng Oth.pdf"
+                  ],
+                  "name": "Vendor Selection RFP Architectural"
+                },
+                {
+                  "stub": null,
+                  "children": [],
+                  "rel_path": "Policies and Procedures/100-999 Standard Operating Policies and Procedures/Business Services/Vendor Selection RFP Professional",
+                  "docs": [
+                    "Vendor Selection RFP Professional  Non Professional Svcs Procedure.pdf",
+                    "Vendor Selection RFP Professional  Non-Professional Svcs.pdf"
+                  ],
+                  "name": "Vendor Selection RFP Professional"
+                },
+                {
+                  "stub": null,
+                  "children": [],
+                  "rel_path": "Policies and Procedures/100-999 Standard Operating Policies and Procedures/Business Services/Vendor Selection Transit Design Build Procurement",
+                  "docs": [
+                    "Vendor Selection Transit Design Build Procurement Procedure.pdf",
+                    "Vendor Selection Transit Design Build Procurement.pdf"
+                  ],
+                  "name": "Vendor Selection Transit Design Build Procurement"
+                }
+              ],
               "rel_path": "Policies and Procedures/100-999 Standard Operating Policies and Procedures/Business Services",
-              "name": "Business Services",
               "docs": [
                 "Advance Payments.pdf",
                 "Bid Options.pdf",
@@ -341,83 +450,22 @@
                 "Vendor Selection - Negotiated Procurements.pdf",
                 "Vendor Selection Rolling Stock.pdf"
               ],
-              "children": [
-                {
-                  "stub": null,
-                  "rel_path": "Policies and Procedures/100-999 Standard Operating Policies and Procedures/Business Services/Negotiated Procurements",
-                  "name": "Negotiated Procurements",
-                  "docs": [
-                    "Negotiated Procurements.pdf",
-                    "Vendor Selection Negotiated Procurements Procedure.pdf"
-                  ],
-                  "children": []
-                },
-                {
-                  "stub": null,
-                  "rel_path": "Policies and Procedures/100-999 Standard Operating Policies and Procedures/Business Services/Records Mgmt Program Retention Schedule",
-                  "name": "Records Mgmt Program Retention Schedule",
-                  "docs": [
-                    "Exhibit A - Retention Schedule.pdf",
-                    "Records Mgmt Program Retention Schedule.pdf"
-                  ],
-                  "children": []
-                },
-                {
-                  "stub": null,
-                  "rel_path": "Policies and Procedures/100-999 Standard Operating Policies and Procedures/Business Services/Vendor Selection - Two Step Procurements",
-                  "name": "Vendor Selection - Two Step Procurements",
-                  "docs": [
-                    "Two Step Procurements Procedure.pdf",
-                    "Vendor Selection - Two Step Procurements.pdf"
-                  ],
-                  "children": []
-                },
-                {
-                  "stub": null,
-                  "rel_path": "Policies and Procedures/100-999 Standard Operating Policies and Procedures/Business Services/Vendor Selection RFP Architectural",
-                  "name": "Vendor Selection RFP Architectural",
-                  "docs": [
-                    "Vendor Selection RFP Arch Eng Oth Procedure.pdf",
-                    "Vendor Selection RFP Arch Eng Oth.pdf"
-                  ],
-                  "children": []
-                },
-                {
-                  "stub": null,
-                  "rel_path": "Policies and Procedures/100-999 Standard Operating Policies and Procedures/Business Services/Vendor Selection RFP Professional",
-                  "name": "Vendor Selection RFP Professional",
-                  "docs": [
-                    "Vendor Selection RFP Professional  Non Professional Svcs Procedure.pdf",
-                    "Vendor Selection RFP Professional  Non-Professional Svcs.pdf"
-                  ],
-                  "children": []
-                },
-                {
-                  "stub": null,
-                  "rel_path": "Policies and Procedures/100-999 Standard Operating Policies and Procedures/Business Services/Vendor Selection Transit Design Build Procurement",
-                  "name": "Vendor Selection Transit Design Build Procurement",
-                  "docs": [
-                    "Vendor Selection Transit Design Build Procurement Procedure.pdf",
-                    "Vendor Selection Transit Design Build Procurement.pdf"
-                  ],
-                  "children": []
-                }
-              ]
+              "name": "Business Services"
             },
             {
               "stub": "<h1>ETID Policies and Procedures</h1>",
+              "children": [],
               "rel_path": "Policies and Procedures/100-999 Standard Operating Policies and Procedures/ETID",
-              "name": "ETID",
               "docs": [
                 "Nov 2013 VTA Permit Fee Schedule.pdf",
                 "VTA Permit Fee.pdf"
               ],
-              "children": []
+              "name": "ETID"
             },
             {
               "stub": "<h1>Finance and Budget Policies and Procedures</h1>",
+              "children": [],
               "rel_path": "Policies and Procedures/100-999 Standard Operating Policies and Procedures/Finance and Budget",
-              "name": "Finance and Budget",
               "docs": [
                 "Capitalization and Tracking of Equipment Vehicles.pdf",
                 "Expressive Activities.pdf",
@@ -436,32 +484,26 @@
                 "Sympathy Upon the....pdf",
                 "Transit Fund Comprehensive Reserve.pdf"
               ],
-              "children": []
+              "name": "Finance and Budget"
             },
             {
               "stub": "<h1>Government and Public Affairs</h1>",
-              "rel_path": "Policies and Procedures/100-999 Standard Operating Policies and Procedures/Government and Public Affairs",
-              "name": "Government and Public Affairs",
-              "docs": [
-                "Social Media.pdf",
-                "VTA Advertising.pdf"
-              ],
               "children": [
                 {
                   "stub": null,
+                  "children": [],
                   "rel_path": "Policies and Procedures/100-999 Standard Operating Policies and Procedures/Government and Public Affairs/Permission to Film or Photograph on VTA",
-                  "name": "Permission to Film or Photograph on VTA",
                   "docs": [
                     "Exhibit Application to FilmPhotograph.pdf",
                     "Permission to Film_Photograph  VTA Property Procedure.pdf",
                     "Permission to Film_Photograph VTA Property.pdf"
                   ],
-                  "children": []
+                  "name": "Permission to Film or Photograph on VTA"
                 },
                 {
                   "stub": null,
+                  "children": [],
                   "rel_path": "Policies and Procedures/100-999 Standard Operating Policies and Procedures/Government and Public Affairs/Project Communications and Outreach",
-                  "name": "Project Communications and Outreach",
                   "docs": [
                     "Exhibit A - COP Chart - Stakeholder.pdf",
                     "Exhibit B - PCOP Chart - Comm.pdf",
@@ -469,36 +511,42 @@
                     "Project Communications and Outreach Procedure.pdf",
                     "Project Communications and Outreach.pdf"
                   ],
-                  "children": []
+                  "name": "Project Communications and Outreach"
                 }
-              ]
+              ],
+              "rel_path": "Policies and Procedures/100-999 Standard Operating Policies and Procedures/Government and Public Affairs",
+              "docs": [
+                "Social Media.pdf",
+                "VTA Advertising.pdf"
+              ],
+              "name": "Government and Public Affairs"
             },
             {
               "stub": "<h1>Office of the General Counsel</h1>",
+              "children": [],
               "rel_path": "Policies and Procedures/100-999 Standard Operating Policies and Procedures/Office of the General Counsel",
-              "name": "Office of the General Counsel",
               "docs": [
                 "Electronic and Digital Signature.pdf",
                 "Records Management.pdf"
               ],
-              "children": []
+              "name": "Office of the General Counsel"
             },
             {
               "stub": "<h1>Operations Policies and Procedures</h1>",
+              "children": [],
               "rel_path": "Policies and Procedures/100-999 Standard Operating Policies and Procedures/Operations",
-              "name": "Operations",
               "docs": [
                 "Lost and Found Items.pdf",
                 "Title VI System Wide Service Standards.pdf",
                 "Use of Communication Devices.pdf",
                 "VTA Reasonable Modification.pdf"
               ],
-              "children": []
+              "name": "Operations"
             },
             {
               "stub": "<h1>Planning and Program Development</h1>",
+              "children": [],
               "rel_path": "Policies and Procedures/100-999 Standard Operating Policies and Procedures/Planning and Program Development",
-              "name": "Planning and Program Development",
               "docs": [
                 "Placement of Wireless Facilities.pdf",
                 "Print-Copy-Scan.pdf",
@@ -506,35 +554,45 @@
                 "Sustainable Landscaping.pdf",
                 "VTA Naming Rights.pdf"
               ],
-              "children": []
+              "name": "Planning and Program Development"
             },
             {
               "stub": "<h1>System Safety and Security</h1>",
+              "children": [],
               "rel_path": "Policies and Procedures/100-999 Standard Operating Policies and Procedures/System Safety and Security",
-              "name": "System Safety and Security",
               "docs": [
                 "CCTV Monitoring and Preserved Footage.pdf"
               ],
-              "children": []
+              "name": "System Safety and Security"
             }
-          ]
+          ],
+          "rel_path": "Policies and Procedures/100-999 Standard Operating Policies and Procedures",
+          "docs": [
+            "Table of Contents.pdf"
+          ],
+          "name": "100-999 Standard Operating Policies and Procedures"
         },
         {
           "stub": "<p>Policy and Procedure Templates</p>",
+          "children": [],
           "rel_path": "Policies and Procedures/1000-1099 Templates",
-          "name": "1000-1099 Templates",
           "docs": [
             "1000 Policies and Procedures Dev, Approval.pdf",
             "Policy & Procedure Workflow.pdf"
           ],
-          "children": []
+          "name": "1000-1099 Templates"
         }
-      ]
+      ],
+      "rel_path": "Policies and Procedures",
+      "docs": [
+        "Definitions.pdf"
+      ],
+      "name": "Policies and Procedures"
     },
     {
       "stub": "<p>VTA Locations</p>",
+      "children": [],
       "rel_path": "VTA Locations",
-      "name": "VTA Locations",
       "docs": [
         "Cerone Yard Map.pdf",
         "Chaboya Yard Map.pdf",
@@ -542,9 +600,14 @@
         "North Yard Map.pdf",
         "River Oaks.pdf"
       ],
-      "children": []
+      "name": "VTA Locations"
     }
-  ]
+  ],
+  "rel_path": ".",
+  "docs": [
+    "Contact List.pdf"
+  ],
+  "name": "Employee Resource Guide"
 };
 
       /**
