@@ -13,20 +13,127 @@
   .vta_logo {display:block;width:260px;margin: 30px 0 0 0;}
   header {margin-bottom:30px; overflow: hidden;}
   h1 {display: block;margin:10px auto;text-align: center;}
-  .breadcrumbs {display:block;width:100%;font-size: 0.8em; color:#3c3c3c; margin-top: 10px;overflow: hidden;height:20px;}
-  .breadcrumbs > *{float:left;}
-  .breadcrumbs .sep {font-size: 0.7em; margin: 5px 7px;}
   .pdf {margin-bottom:10px;list-style: none;}
-  .pdf:before { content: ''; display: inline-block; height: 20px; width: 30px; position: relative; left: 0px; background-image: url('{resources-path}Adobe_PDF_file_icon_32x32.png'); background-repeat: no-repeat; background-size: 20px;}
+  li.child {list-style: none;}
+  .pdf:before { content: ''; display: inline-block; height: 20px; width: 30px; position: relative; left: 0px; background-image: url('{resources-path}images/Adobe_PDF_file_icon_32x32.png'); background-repeat: no-repeat; background-size: 20px;}
+
+  .accordion-button {
+    font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+    list-style: none;
+    width: 100%;
+    border: 0;
+    border-radius: 0;
+    margin: 0;
+    outline: 0;
+    text-align: left;
+    -webkit-font-smoothing: auto;
+    background-color: #f1f1f1;
+    color: #212121;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 700;
+    font-size:1.5em;
+    padding: 1.5rem 5.5rem 1.5rem 3rem;
+  }
+  .accordion-indicator:before {
+    cursor: pointer;
+    font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+    display: inline-block;
+    float:right;
+    font-size:1.5em;
+    font-weight: 700;}
+  .accordion-button.collapsed>.accordion-indicator:before  { content:"+";}
+  .accordion-button>.accordion-indicator:before  { content:"-";}
+  
+ 
+  .accordion-content {
+    border-bottom: 3px solid #f1f1f1;
+    border-left: 3px solid #f1f1f1;
+    border-right: 3px solid #f1f1f1;
+    background-color: #ffffff;
+    overflow: auto;
+    padding: 3rem;}
+
   </style>
+  <link href="{resources-path}css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
   <header>
-    <img src="{resources-path}vta_logo.png" alt="VTA" class="vta_logo"/>
-    <nav class="breadcrumbs">{nav-breadcrumb-content}</nav>
+    <img src="{resources-path}images/vta_logo.png" alt="VTA" class="vta_logo"/>
   </header>
   <div class="content-wrapper">
-    {body-content}
+    <div id="toc"></div>
+    <script>
+      var toc_data = {toc-data};
+
+      /**
+       * @see http://stackoverflow.com/q/7616461/940217
+       * @return {number}
+       */
+      String.prototype.hashCode = function(){
+          if (Array.prototype.reduce){
+              return this.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);              
+          } 
+          var hash = 0;
+          if (this.length === 0) return hash;
+          for (var i = 0; i < this.length; i++) {
+              var character  = this.charCodeAt(i);
+              hash  = ((hash<<5)-hash)+character;
+              hash = hash & hash; // Convert to 32bit integer
+          }
+          return hash;
+      }
+
+      function build_toc_item(toc_item, level){
+          var content = [];
+
+          var item_hash = toc_item.name.hashCode()
+          window.console.log({'item #': item_hash, 'level': level, 'name':toc_item.name, 'item':toc_item});
+
+          var is_collapsed = level >= 2;
+          var h_level = 'h'+level
+          //var a_name = '<a href="#section_'+item_hash+'" class="section_link"></a>'
+          var h_name = toc_item.name === null ? '' : '<'+h_level+' id="section_'+item_hash+'" data-toggle="collapse" data-target="#item_'+item_hash+'" class="accordion-button '+(is_collapsed ? 'collapsed' : '')+'">'+toc_item.name+'<i class="accordion-indicator">&nbsp;</i></'+h_level+'>';
+          //content.push(a_name);
+          content.push(h_name);
+
+          var section_content = [];
+
+          var stub = toc_item.stub === null ? '' : toc_item.stub;
+          section_content.push(stub);
+
+          var lis = [];
+          for (var i=0; i < toc_item.docs.length; i++){
+              var doc = toc_item.docs[i]
+              var doc_path = toc_item.rel_path + '/' + doc;
+              lis.push('<li class="pdf"><a href="'+doc_path+'">'+ doc +'</a></li>');
+          }
+          section_content.push('<ul>'+lis.join('')+'</ul>');
+
+          if (toc_item.children.length > 0){
+              var child_lis = [];
+              for (var i=0; i < toc_item.children.length; i++){
+                  child_lis.push('<li class="child">'+ build_toc_item(toc_item.children[i], level+1) +'</li>');
+              }
+              
+
+              section_content.push('<ul>'+child_lis.join('')+'</ul>');
+          }
+
+          // bootstrap collapse: add the "in" class name to have it be opened by default
+          var opened = !is_collapsed ? ' in' : '';
+          content.push('<div class="accordion-content collapse'+opened+'" id="item_'+item_hash+'">'+section_content.join('')+'</div>')
+
+          return content.join('');
+      }
+
+      (function(){
+        var toc_elem = document.getElementById('toc')
+        toc_elem.innerHTML = build_toc_item(toc_data, 1)
+      })();
+    </script>
   </div>
+  <script src="{resources-path}js/jquery-3.1.1.min.js"></script>
+  <script src="{resources-path}js/bootstrap.min.js"></script>
 </body>
 </html>
