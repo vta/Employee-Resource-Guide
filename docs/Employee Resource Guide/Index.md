@@ -1,0 +1,9 @@
+The Santa Clara Valley Transportation Authority (Authority) considers its employees to be the most important resource of the organization. As such, the Authority strives to create a work environment that is fair and equitable to all employees, and that will provide the opportunity for advancement and development based on merit. The Authority will continue to grow so long as it is able to attract highly qualified and motivated employees and managers with competitive salaries and benefits, The Authority will be able to retain these employees and managers by fair and equitable administration of personnel policies and procedures.
+
+This manual contains the Authority's personnel policies and procedures which must be followed by all employees. It is intended to serve as the permanent reference and working guide for employees in the daily administration of Authority affairs.
+
+These written policies are intended to increase understanding, eliminate the need for numerous personal or individual decisions on matters of Authority policy, and assist in assuring uniformity throughout the organization.
+
+This manual covers all Authority employees except where an employee's collective bargaining agreement addresses the same policy. In all occasions, the collective bargaining agreement and/or applicable resolution will supersede the policies presented in this manual. These policies and procedures do not supersede any work rules established by the individual departments.
+
+Unrepresented employees are subject to the terms and conditions contained in the benefits resolution. If there is a conflict between these policies and the resolution, the resolution prevails.
